@@ -1,35 +1,48 @@
 <?php 
-    $usernameV = $emailV = $passV = $cpassV = "";
+    $usernameV = "";
+    $emailV = "";
+    $passV = "";
+    $cpassV = "";
     $generalError = "";
     
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if($_SERVER["REQUEST_METHOD"] == "POST") 
+    {
         $username = $_REQUEST["username"];
         $email = $_REQUEST["email"];
         $password = $_REQUEST["password"];
         $cpassword = $_REQUEST["cpassword"];
 
-        if(empty($username) || empty($email) || empty($password) || empty($cpassword)) {
-            $generalError = "Please fill up all the fields";
-        } else {
-            if(!preg_match("/[a-zA-Z0-9._]+/", $username)) {
+        if(empty($username) || empty($email) || empty($password) || empty($cpassword)) 
+        {
+            $generalError = "All fields are required";
+        } 
+        else
+        {
+            if(!preg_match("/[a-zA-Z0-9._]+/", $username)) 
+            {
                 $usernameV = "Your Username can only have alphanumeric characters/period/underscore";
             }
-            if(strlen($username) < 5) {
+            if(strlen($username) < 5) 
+            {
                 $usernameV = "Your Username must contain atleast 5 characters";
             }
 
-            if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$/i", $email)) {
+            if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$/i", $email)) 
+            {
                 $emailV = "Please enter a valid email";
             }
 
-            if(!preg_match("/(?=.*[@#$%^&+=]).*$/", $password)) {
+            if(!preg_match("/(?=.*[@#$%^&+=]).*$/", $password))
+            {
                 $passV = "Password atleast contain 1 special character";
             } 
-            if(strlen($password) < 6) {
+            if(strlen($password) < 6)
+            {
                 $passV = " Password must contain atleast 6 characters";
             }
-            if($password != $cpassword) {
-                $cpassV = "Both password have to match";
+            if($password != $cpassword)
+            {
+                $cpassV = "The password does not match";
             }
         }
     }
